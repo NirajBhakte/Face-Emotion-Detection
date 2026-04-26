@@ -41,13 +41,13 @@ EMOTION_COLORS = {
 # ==============================
 # Load Model
 # ==============================
-print("🔄 Loading emotion model...")
+print("Loading emotion model...")
 try:
     model = load_model(MODEL_PATH)
-    print(f"✅ Model loaded from: {MODEL_PATH}")
+    print(f"Model loaded from: {MODEL_PATH}")
     print(f"   Input shape expected: {model.input_shape}")
 except Exception as e:
-    print(f"❌ Failed to load model: {e}")
+    print(f"Failed to load model: {e}")
     exit(1)
 
 # ==============================
@@ -57,7 +57,7 @@ face_cascade = cv2.CascadeClassifier(
     cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'
 )
 if face_cascade.empty():
-    print("❌ Haar cascade not found. Check your OpenCV installation.")
+    print("Haar cascade not found. Check your OpenCV installation.")
     exit(1)
 
 # ==============================
@@ -70,7 +70,7 @@ prediction_buffer = deque(maxlen=SMOOTH_WINDOW)
 # ==============================
 cap = cv2.VideoCapture(0)
 if not cap.isOpened():
-    print("❌ Could not open webcam.")
+    print("Could not open webcam.")
     exit(1)
 
 cap.set(cv2.CAP_PROP_FRAME_WIDTH,  640)
@@ -82,7 +82,7 @@ while True:
     ret, frame = cap.read()
 
     if not ret or frame is None:
-        print("⚠️  Frame read failed, retrying...")
+        print("Frame read failed, retrying...")
         continue
 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -108,7 +108,7 @@ while True:
         try:
             prediction = model.predict(face_input, verbose=0)[0]
         except Exception as e:
-            print(f"⚠️  Prediction error: {e}")
+            print(f"Prediction error: {e}")
             continue
 
         # ---- Smoothing ----
@@ -174,10 +174,10 @@ while True:
     cv2.imshow("Emotion Detection", frame)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
-        print("\n👋 Exiting...")
+        print("\n Exiting...")
         break
 
 # ---- Cleanup ----
 cap.release()
 cv2.destroyAllWindows()
-print("✅ Camera released. Goodbye!")
+print("Camera released. Goodbye!")

@@ -227,4 +227,4 @@ plt.tight_layout()
 plt.savefig("outputs/training_plots.png", dpi=150)
 plt.show()
 
-print("\n✅ Training complete! Plots saved to outputs/training_plots.png")
+print("\nTraining complete! Plots saved to outputs/training_plots.png")
